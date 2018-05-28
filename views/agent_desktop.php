@@ -308,10 +308,7 @@ $activity = [];
                     "From": "<?= $caller_ID ?>",  // CC's phone number
                     "PostWorkActivitySid": "<?= $activity['WrapUp'] ?>",
                     "Timeout": "30",
-                    "Record": "true",
-                    "RecordingStatusCallback": window.location.protocol + "//" + window.location.host + "/recording_callback",
-                    "ConferenceStatusCallback": window.location.protocol + "//" + window.location.host + "/conference_callback",
-                    "ConferenceStatusCallbackEvent": "start,end,join,leave"
+                    
                 };
                 console.log("Starting conference...");
                 console.log(options);
