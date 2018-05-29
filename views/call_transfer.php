@@ -14,6 +14,11 @@ $auth_token = getenv('TWILIO_ACME_AUTH_TOKEN');
 $workspace_sid = getenv("TWILIO_ACME_WORKSPACE_SID");
 $workflow_sid = getenv("TWILIO_ACME_MANAGER_WORKFLOW_SID");
 
+echo 'printing tokens';
+echo $account_sid;
+echo $auth_token;
+echo $workflow_sid;
+
 $client = new Client($sid, $token);
 
 $participant = $client->conferences($_REQUEST['conference'])

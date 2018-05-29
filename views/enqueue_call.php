@@ -5,7 +5,6 @@ header('Content-type: application/xml');
 require 'vendor/autoload.php';
 use Twilio\Twiml;
 
-
 $department = [
 1 => "sales",
 2 => "support",
@@ -22,7 +21,7 @@ $response = new  Twiml();
 
 $choice = $_REQUEST['Digits'];
 
-$enqueue = $response->enqueue([workflow_sid=>$workflow_array[$choice]]);
+$enqueue = $response->enqueue([workflowSid=>$workflow_array[$choice]]);
 	$enqueue->task('{"selected_product":"'.$department[$choice].'"}');
 
 echo $response;

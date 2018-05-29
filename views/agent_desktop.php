@@ -169,8 +169,8 @@ $activity = [];
                 logger("-----");
                 logger("You have been reserved to handle a call!");
                 logger("Call from: " + reservation.task.attributes.from);
-                logger("Selected language: " + reservation.task.attributes.selected_language);
-                logger("Customer request: " + reservation.task.attributes.selected_product);
+                //logger("Selected language: " + reservation.task.attributes.selected_language);
+                //logger("Customer request: " + reservation.task.attributes.selected_product);
                 logger("-----");
                 logger(reservation.sid);
                 refreshWorkerUI(worker, "Incoming Reservation")
