@@ -19,6 +19,7 @@ use Twilio\Jwt\ClientToken;
 $workerSid = $_REQUEST['WorkerSid'];
 $workspace_sid = getenv("TWILIO_ACME_WORKSPACE_SID");
 $appSid = getenv("TWILIO_ACME_TWIML_APP_SID");
+$caller_id = getenv("TWILIO_ACME_CALLERID");
 
 $capability = new WorkerCapability($account_sid, $auth_token, $workspace_sid, $workerSid);
 $capability->allowFetchSubresources();
@@ -304,25 +305,8 @@ $activity = [];
             else {
                 
                 // not a transfer, simply create a new conference and join customer and worker into it
-                var options = {
-                    "From": "<?= $caller_ID ?>",  // CC's phone number
-                    "PostWorkActivitySid": "<?= $activity['WrapUp'] ?>",
-                    "Timeout": "30",
-                    
-                };
-                console.log("Starting conference...");
-                console.log(options);
-
-                ReservationObject.conference(null, null, null, null,
-                    function (error, reservation) {
-                        if (error) {
-                            console.log(error.code);
-                            console.log(error.message);
-                        }
-                    },
-                    options
-                )
-                logger("Conference initiated!");
+                
+                ReservationObject.conference();
             }
 
             refreshWorkerUI(worker, "In a Call");
