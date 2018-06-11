@@ -11,10 +11,6 @@ use Twilio\Rest\Client;
 $account_sid = getenv("TWILIO_ACME_ACCOUNT_SID");
 $auth_token = getenv('TWILIO_ACME_AUTH_TOKEN');
 
-$workspace_sid = getenv("TWILIO_ACME_WORKSPACE_SID");
-$workflow_sid = getenv("TWILIO_ACME_MANAGER_WORKFLOW_SID");
-
-
 $client = new Client($account_sid, $auth_token);
 
 $participant = $client->conferences($_REQUEST['conference'])
