@@ -21,6 +21,9 @@ switch ($request_uri[0]) {
     case '/transferTwiml':
         require 'views/transfer_twiml.php';
         break;
+    case '/callmute':
+        require 'views/call_mute.php';
+        break;
     case '/agents':
         require 'views/agent_desktop.php';
         break;

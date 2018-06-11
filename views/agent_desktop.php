@@ -10,8 +10,11 @@ use Twilio\Twiml;
 use Twilio\Jwt\TaskRouter\WorkerCapability;
 use Twilio\Jwt\ClientToken;
 
-$account_sid = getenv("TWILIO_ACME_ACCOUNT_SID");
-$auth_token = getenv('TWILIO_ACME_AUTH_TOKEN');
+ $account_sid = getenv("TWILIO_ACME_ACCOUNT_SID");
+ $auth_token = getenv('TWILIO_ACME_AUTH_TOKEN');
+ 
+ $client = new Client($account_sid, $auth_token);
+
 
 $workerSid = $_REQUEST['WorkerSid'];
 $workspace_sid = getenv("TWILIO_ACME_WORKSPACE_SID");
@@ -19,10 +22,6 @@ $workspace_sid = getenv("TWILIO_ACME_WORKSPACE_SID");
 $appSid = getenv("TWILIO_ACME_TWIML_APP_SID");
 
 $caller_id = getenv("TWILIO_ACME_CALLERID");
- 
-$client = new Client($account_sid, $auth_token);
-
-
 
 
 $capability = new WorkerCapability($account_sid, $auth_token, $workspace_sid, $workerSid);
@@ -309,41 +308,42 @@ $activity = [];
             else {
                 
                 // not a transfer, simply create a new conference and join customer and worker into it
-                // var options = {
-                //     "From": "<?= $caller_id ?>",  // CC's phone number
-                //     "PostWorkActivitySid": "<?= $activity['WrapUp'] ?>",
-                //     "Timeout": "30",
+                var options = {
+                    "From": "<?= $caller_id ?>",  // CC's phone number
+                    "PostWorkActivitySid": "<?= $activity['WrapUp'] ?>",
+                    "Timeout": "30",
+                    "RecordingChannels": "dual",
+                    "RecordingStatusCallback": "http://yourdomain.com/recordingcallback"
                     
-                // };
-               
-                // ReservationObject.conference(null, null, null, null,
-                //     function (error, reservation) {
-                //         if (error) {
-                //             console.log(error.code);
-                //             console.log(error.message);
-                //         }
-                //     },
-                //     options
-                // )
-                // logger("Conference initiated!");
-                console.log('attempting to conference');
-                console.log(ReservationObject);
+                };
+               console.log('attempting to initiate conference');
                 
-                ReservationObject.conference(
-                    "<?= $caller_id ?>",
-                    "<?= $activity['WrapUp'] ?>",
-                    "30",
-                    function(error, ReservationObject) {
-                        if(error) {
+                ReservationObject.conference(null, null, null, null,
+                    function (error, reservation) {
+                        if (error) {
                             console.log(error.code);
                             console.log(error.message);
-                            return;
                         }
-                        console.log("conference initiated");
-                    }
-                );
+                    },
+                    options
+                )
+                logger("Conference initiated!");
+                
+                // ReservationObject.conference(
+                //     "<?= $caller_id ?>",
+                //     "<?= $activity['WrapUp'] ?>",
+                //     "30",
+                //     function(error, reservation) {
+                //         if(error) {
+                //             console.log(error.code);
+                //             console.log(error.message);
+                //             return;
+                //         }
+                //         console.log("conference initiated");
+                //     }
+                // );
 
-               console.log(ReservationObject);
+                // ReservationObject.conference();
             }
 
             refreshWorkerUI(worker, "In a Call");
