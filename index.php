@@ -24,6 +24,9 @@ switch ($request_uri[0]) {
     case '/callmute':
         require 'views/call_mute.php';
         break;
+    case '/callmute':
+        require 'views/call_mute.php';
+        break;
     case '/agents':
         require 'views/agent_desktop.php';
         break;

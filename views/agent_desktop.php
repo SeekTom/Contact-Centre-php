@@ -10,18 +10,17 @@ use Twilio\Twiml;
 use Twilio\Jwt\TaskRouter\WorkerCapability;
 use Twilio\Jwt\ClientToken;
 
- $account_sid = getenv("TWILIO_ACME_ACCOUNT_SID");
- $auth_token = getenv('TWILIO_ACME_AUTH_TOKEN');
+ $account_sid = '';
+ $auth_token = '';
  
  $client = new Client($account_sid, $auth_token);
 
 
 $workerSid = $_REQUEST['WorkerSid'];
-$workspace_sid = getenv("TWILIO_ACME_WORKSPACE_SID");
 
-$appSid = getenv("TWILIO_ACME_TWIML_APP_SID");
-
-$caller_id = getenv("TWILIO_ACME_CALLERID");
+$workspace_sid = '';
+$appSid = '';
+$caller_id ='';
 
 
 $capability = new WorkerCapability($account_sid, $auth_token, $workspace_sid, $workerSid);
@@ -277,21 +276,15 @@ $activity = [];
             if (ReservationObject.task.attributes.selected_product === "manager") {
                 // Manager escalation, issue call instuction
                 console.log("manager task");
-                console.log(ReservationObject);
+               // console.log(ReservationObject);
                 
                 console.log(window.location.protocol + "//" + window.location.host + "/transferTwiml?conference=" + ReservationObject.task.attributes.customer_taskSid)
                     ReservationObject.call(
                     // callFrom
                     "<?= $caller_id ?>",  // CC's phone number
-                    // callUrl - URI that is executed on the answering Worker's leg
                     window.location.protocol + "//" + window.location.host + "/transferTwiml?conference=" + ReservationObject.task.attributes.customer_taskSid,
-                    // callStatusCallbackUrl (optional) - status callback url
-                    window.location.protocol + "//" + window.location.host + "/conference_callback",
-                    // callAccept (optional) - accept the task before initiating call
                     "false",
-                    // callRecord (optional) - record-from-answer or false - false since we're already recoding the main conference
                     "false",
-                    // resultCallback (optional) - a JavaScript Function that will be called upon the completion of the dial
                     function (error, reservation) {
                         if (error) {
                             console.log(error.code);
@@ -313,8 +306,6 @@ $activity = [];
                     "PostWorkActivitySid": "<?= $activity['WrapUp'] ?>",
                     "Timeout": "30",
                     "RecordingChannels": "dual",
-                    "RecordingStatusCallback": "http://yourdomain.com/recordingcallback"
-                    
                 };
                console.log('attempting to initiate conference');
                 
@@ -329,21 +320,7 @@ $activity = [];
                 )
                 logger("Conference initiated!");
                 
-                // ReservationObject.conference(
-                //     "<?= $caller_id ?>",
-                //     "<?= $activity['WrapUp'] ?>",
-                //     "30",
-                //     function(error, reservation) {
-                //         if(error) {
-                //             console.log(error.code);
-                //             console.log(error.message);
-                //             return;
-                //         }
-                //         console.log("conference initiated");
-                //     }
-                // );
-
-                // ReservationObject.conference();
+                
             }
 
             refreshWorkerUI(worker, "In a Call");

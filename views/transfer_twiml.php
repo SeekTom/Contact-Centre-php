@@ -8,7 +8,7 @@ use Twilio\Twiml;
 $response = new  Twiml();
 $dial = $response->dial();
 
-$conference = $_REQUEST['TaskSid'];
+$conference = $_REQUEST['conference'];
 
 $dial->conference($conference);
 
