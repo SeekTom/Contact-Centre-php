@@ -10,17 +10,17 @@ use Twilio\Twiml;
 use Twilio\Jwt\TaskRouter\WorkerCapability;
 use Twilio\Jwt\ClientToken;
 
- $account_sid = '';
- $auth_token = '';
+ $account_sid = getenv('TWILIO_ACME_ACCOUNT_SID');
+ $auth_token = getenv('TWILIO_ACME_AUTH_TOKEN');;
  
  $client = new Client($account_sid, $auth_token);
 
 
 $workerSid = $_REQUEST['WorkerSid'];
 
-$workspace_sid = '';
-$appSid = '';
-$caller_id ='';
+$workspace_sid = getenv('TWILIO_ACME_WORKSPACE_SID');;
+$appSid = getenv('TWILIO_ACME_TWIML_APP_SID');
+$caller_id =getenv('TWILIO_ACME_CALLERID');
 
 
 $capability = new WorkerCapability($account_sid, $auth_token, $workspace_sid, $workerSid);
@@ -52,7 +52,7 @@ $activity = [];
     <title>OwlCorp - Chat Agent Screen</title>
 
     <script type="text/javascript" src="//media.twiliocdn.com/sdk/js/client/v1.4/twilio.min.js"></script>
-    <script type="text/javascript" src="//media.twiliocdn.com/taskrouter/js/v1.10/taskrouter.min.js"></script>
+    <script type="text/javascript" src="//media.twiliocdn.com/taskrouter/js/v1.13/taskrouter.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
     <link type="text/css" rel="stylesheet" href="//media.twiliocdn.com/taskrouter/quickstart/agent.css"/>
