@@ -12,7 +12,7 @@ $account_sid = getenv("TWILIO_ACME_ACCOUNT_SID");
 $auth_token = getenv('TWILIO_ACME_AUTH_TOKEN');
 
 $workspace_sid = getenv("TWILIO_ACME_WORKSPACE_SID");
-$workflow_sid = getenv("TWILIO_ACME_MANAGER_WORKFLOW_SID");
+$workflow_sid = getenv("TWILIO_ACME_WORKFLOW_SID");
 
 echo 'printing tokens';
 echo $account_sid;
