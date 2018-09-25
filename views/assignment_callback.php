@@ -1,6 +1,6 @@
 <?php
 
-$callerID= "+";// a verified phone number from your twilio account
+$callerID= "";// a verified phone number from your twilio account
 $activity=""; //activity to set the worker to
 
 $assignment_instruction = [
