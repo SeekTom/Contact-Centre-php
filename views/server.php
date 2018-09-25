@@ -32,6 +32,9 @@ switch ($request_uri[0]) {
     case '/incoming_call':
         require '../views/about.php';
         break;
+    case '/assignment_callback':
+        require '../views/assigment_callback.php';
+        break;
     // Everything else
     default:
         header('HTTP/1.0 404 Not Found');
