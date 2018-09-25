@@ -33,6 +33,9 @@ switch ($request_uri[0]) {
     case '/agent_list':
         require 'views/agent_list.php';
         break;
+    case '/assignment_callback':
+        require '../views/assigment_callback.php';
+        break;
     // Everything else
     default:
         header('HTTP/1.0 404 Not Found');
